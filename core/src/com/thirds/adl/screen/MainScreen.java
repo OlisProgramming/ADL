@@ -7,12 +7,18 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.*;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.thirds.adl.AppDevLanguage;
 
+/**
+ * Startup screen, shows [New Project] button.
+ * @see com.badlogic.gdx.Screen
+ * @see com.thirds.adl.screen.NewProjectScreen
+ */
 public class MainScreen implements Screen {
 
     private AppDevLanguage game;
@@ -22,11 +28,14 @@ public class MainScreen implements Screen {
     private Stage stage;
 
     private SpriteBatch batch;
+    private ShapeRenderer shapeRenderer;
+
     private Texture texLogo;
     private Texture texNewProject;
     private Button btnNewProject;
 
-    private float time;
+    private float time = 0.0f;
+    private float fillWhiteTime = -1.0f;
 
     public MainScreen(AppDevLanguage game) {
         this.game = game;
@@ -42,6 +51,8 @@ public class MainScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         batch = new SpriteBatch();
+        shapeRenderer = new ShapeRenderer();
+
         texLogo = new Texture("Logo.png");
         texNewProject = new Texture("buttons/NewProj.png");
         btnNewProject = new Button(new TextureRegionDrawable(new TextureRegion(texNewProject)));
@@ -53,17 +64,26 @@ public class MainScreen implements Screen {
                                                                float x, float y,
                                                                int pointer, int button) {
                                           Gdx.app.log("ADL New Project Button", "Pressed");
-                                          game.setScreen(new NewProjectScreen(game));
+                                          newProject();
                                           return true;
                                       }
                                   }
         );
     }
 
+    private void newProject() {
+
+        fillWhiteTime = 0.0f;
+    }
+
     @Override
     public void render(float delta) {
 
         time += delta;
+        if (fillWhiteTime != -1.0f) {
+            fillWhiteTime += delta*2;
+            if (fillWhiteTime > 1.0f) game.setScreen(new NewProjectScreen(game));
+        }
 
         Gdx.gl.glClearColor(0.2f, 0.2f, 0.2f, 1.0f);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -113,11 +133,19 @@ public class MainScreen implements Screen {
         batch.end();
 
         stage.draw();
+
+        Gdx.gl.glEnable(GL20.GL_BLEND);
+        Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(0.9f, 0.9f, 0.9f, (fillWhiteTime == -1.0f) ? 0 : fillWhiteTime);
+        shapeRenderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        shapeRenderer.end();
     }
 
     @Override
     public void resize(int width, int height) {
 
+        camera.update();
         viewport.update(width, height, true);
     }
 
