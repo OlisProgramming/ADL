@@ -3,13 +3,17 @@ package com.thirds.adl.screen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.CharArray;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.thirds.adl.AppDevLanguage;
+
+import java.io.IOException;
 
 class NewProjectScreen implements Screen {
 
@@ -23,6 +27,8 @@ class NewProjectScreen implements Screen {
     private BitmapFont font;
 
     private String projectName = "";
+    private String debugText = "";
+
     /**
      * 0: Default
      * 1: The user has pressed Enter to selecting the project name
@@ -58,7 +64,11 @@ class NewProjectScreen implements Screen {
 
                 if (Character.isLetter(character)) {
                     if (state == 0) {
-                        projectName += character;
+                        if (projectName.equals("")) {
+                            projectName += Character.toUpperCase(character);
+                        } else {
+                            projectName += character;
+                        }
                     }
                 } else if (character == '\b') {
                     if (state == 0) {
@@ -69,8 +79,18 @@ class NewProjectScreen implements Screen {
                             state = 0;
                     }
                 } else if (character == '\n' || character == '\r') {
-                    if (state <= 1) {
-                        state++;
+                    if (state == 0) {
+                        state = 1;
+                    } else if (state == 1) {
+                        state = 2;
+                        /* Block that requires synchronisation */
+                        Thread thread = new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                createFile("Main.adl", "Testing... Testing...\n1, 2, 3...");
+                            }
+                        });
+                        thread.start();
                     }
                 }
                 return true;
@@ -89,6 +109,26 @@ class NewProjectScreen implements Screen {
         });
     }
 
+    private void createFile(String path, String input) {
+
+        debugText = "Create File: " + path;
+        Gdx.app.log("Create File", path);
+        FileHandle fileHandle = Gdx.files.external("Documents/ADL/" + projectName + "/" + path);
+        try {
+            if (!fileHandle.exists()) {
+                boolean success = fileHandle.parent().file().mkdirs();
+                success |= fileHandle.file().createNewFile();
+                if (!success) {
+                    debugText = "Error while trying to create new file:\nDocuments/ADL" + projectName + "/" + path;
+                    Gdx.app.log("Error while trying to create new file", "Documents/ADL" + projectName + "/" + path);
+                }
+            }
+            fileHandle.writeString(input, false);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void render(float delta) {
 
@@ -105,20 +145,35 @@ class NewProjectScreen implements Screen {
             case 1:
                 glyphLayout.setText(font, "Press Enter to confirm,\nand Backspace to cancel.");
                 break;
+            case 2:
+                glyphLayout.setText(font, "Setting up ADL Project!");
+                break;
         }
         font.draw(batch, glyphLayout,
                 (- glyphLayout.width) / 2,
                 (- glyphLayout.height) / 2 + 200);
 
-        if (projectName.equals("")) {
+        if (state == 0 || state == 1) {
+
+            if (projectName.equals("")) {
+                font.setColor(0.5f, 0.5f, 0.5f, 1.0f);
+                glyphLayout.setText(font, "ADLProject");
+            } else {
+                glyphLayout.setText(font, projectName);
+            }
+
+            font.draw(batch, glyphLayout,
+                    (-glyphLayout.width) / 2,
+                    (-glyphLayout.height) / 2 - 100);
+
+        } else if (state == 2) {
+
             font.setColor(0.5f, 0.5f, 0.5f, 1.0f);
-            glyphLayout.setText(font, "ADLProject");
-        } else {
-            glyphLayout.setText(font, projectName);
+            glyphLayout.setText(font, debugText);
+            font.draw(batch, glyphLayout,
+                    (-glyphLayout.width) / 2,
+                    (-glyphLayout.height) / 2 - 100);
         }
-        font.draw(batch, glyphLayout,
-                (-glyphLayout.width) / 2,
-                (-glyphLayout.height) / 2 - 100);
         batch.end();
     }
 
