@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.thirds.adl.AppDevLanguage;
+import com.thirds.adl.file.AdlFiles;
 
 /**
  * Startup screen, shows [New Project] button.
@@ -33,9 +34,12 @@ public class MainScreen implements Screen {
     private Texture texLogo;
     private Texture texNewProject;
     private Button btnNewProject;
+    private boolean projectActive;
 
     private float time = 0.0f;
     private float fillWhiteTime = -1.0f;
+
+    private String currentProjectName = "";
 
     public MainScreen(AppDevLanguage game) {
         this.game = game;
@@ -54,21 +58,26 @@ public class MainScreen implements Screen {
         shapeRenderer = new ShapeRenderer();
 
         texLogo = new Texture("Logo.png");
-        texNewProject = new Texture("buttons/NewProj.png");
-        btnNewProject = new Button(new TextureRegionDrawable(new TextureRegion(texNewProject)));
-        btnNewProject.setX(-1000f);
-        btnNewProject.setY(-1000f);
-        stage.addActor(btnNewProject);
-        btnNewProject.addListener(new InputListener() {
-                                      public boolean touchDown(InputEvent event,
-                                                               float x, float y,
-                                                               int pointer, int button) {
-                                          Gdx.app.log("ADL New Project Button", "Pressed");
-                                          newProject();
-                                          return true;
+        projectActive = AdlFiles.isProjectActive();
+        if (projectActive) {
+            /* TODO add other things */
+        } else {
+            texNewProject = new Texture("buttons/NewProj.png");
+            btnNewProject = new Button(new TextureRegionDrawable(new TextureRegion(texNewProject)));
+            btnNewProject.setX(-1000f);
+            btnNewProject.setY(-1000f);
+            stage.addActor(btnNewProject);
+            btnNewProject.addListener(new InputListener() {
+                                          public boolean touchDown(InputEvent event,
+                                                                   float x, float y,
+                                                                   int pointer, int button) {
+                                              Gdx.app.log("ADL New Project Button", "Pressed");
+                                              newProject();
+                                              return true;
+                                          }
                                       }
-                                  }
-        );
+            );
+        }
     }
 
     private void newProject() {
@@ -118,17 +127,23 @@ public class MainScreen implements Screen {
             batch.draw(texLogo,
                     (Gdx.graphics.getWidth() - texLogo.getWidth()) / 2,
                     (Gdx.graphics.getHeight() - texLogo.getHeight()) / 2 + 100);
-            btnNewProject.setX((Gdx.graphics.getWidth() - texNewProject.getWidth()) / 2);
-            btnNewProject.setY((Gdx.graphics.getHeight() - texNewProject.getHeight()) / 2
-                    - val*Gdx.graphics.getHeight()/3 - 150);
+
+            if (!projectActive) {
+                btnNewProject.setX((Gdx.graphics.getWidth() - texNewProject.getWidth()) / 2);
+                btnNewProject.setY((Gdx.graphics.getHeight() - texNewProject.getHeight()) / 2
+                        - val * Gdx.graphics.getHeight() / 3 - 150);
+            }
         } else {
             /* Finished; go to next screen. */
             batch.draw(texLogo,
                     (Gdx.graphics.getWidth() - texLogo.getWidth()) / 2,
                     (Gdx.graphics.getHeight() - texLogo.getHeight()) / 2 + 100);
-            btnNewProject.setX((Gdx.graphics.getWidth() - texNewProject.getWidth()) / 2);
-            btnNewProject.setY((Gdx.graphics.getHeight() - texNewProject.getHeight()) / 2
-                    - 150);
+
+            if (!projectActive) {
+                btnNewProject.setX((Gdx.graphics.getWidth() - texNewProject.getWidth()) / 2);
+                btnNewProject.setY((Gdx.graphics.getHeight() - texNewProject.getHeight()) / 2
+                        - 150);
+            }
         }
         batch.end();
 

@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.CharArray;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.thirds.adl.AppDevLanguage;
+import com.thirds.adl.file.AdlFiles;
 
 import java.io.IOException;
 
@@ -27,7 +28,6 @@ class NewProjectScreen implements Screen {
     private BitmapFont font;
 
     private String projectName = "";
-    private String debugText = "";
 
     /**
      * 0: Default
@@ -83,11 +83,12 @@ class NewProjectScreen implements Screen {
                         state = 1;
                     } else if (state == 1) {
                         state = 2;
+                        AdlFiles.setProjectName(projectName);
                         /* Block that requires synchronisation */
                         Thread thread = new Thread(new Runnable() {
                             @Override
                             public void run() {
-                                createFile("Main.adl", "Testing... Testing...\n1, 2, 3...");
+                                AdlFiles.createAdlFileFromTemplate("Main", "Main");
                             }
                         });
                         thread.start();
@@ -107,26 +108,6 @@ class NewProjectScreen implements Screen {
             @Override
             public boolean scrolled(int amount) { return false; }
         });
-    }
-
-    private void createFile(String path, String input) {
-
-        debugText = "Create File: " + path;
-        Gdx.app.log("Create File", path);
-        FileHandle fileHandle = Gdx.files.external("Documents/ADL/" + projectName + "/" + path);
-        try {
-            if (!fileHandle.exists()) {
-                boolean success = fileHandle.parent().file().mkdirs();
-                success |= fileHandle.file().createNewFile();
-                if (!success) {
-                    debugText = "Error while trying to create new file:\nDocuments/ADL" + projectName + "/" + path;
-                    Gdx.app.log("Error while trying to create new file", "Documents/ADL" + projectName + "/" + path);
-                }
-            }
-            fileHandle.writeString(input, false);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -169,7 +150,7 @@ class NewProjectScreen implements Screen {
         } else if (state == 2) {
 
             font.setColor(0.5f, 0.5f, 0.5f, 1.0f);
-            glyphLayout.setText(font, debugText);
+            glyphLayout.setText(font, projectName);
             font.draw(batch, glyphLayout,
                     (-glyphLayout.width) / 2,
                     (-glyphLayout.height) / 2 - 100);
