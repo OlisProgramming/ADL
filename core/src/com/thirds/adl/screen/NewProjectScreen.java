@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.CharArray;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.thirds.adl.AppDevLanguage;
+import com.thirds.adl.file.AdlFiles;
 
 import java.io.IOException;
 
@@ -27,7 +28,7 @@ class NewProjectScreen implements Screen {
     private BitmapFont font;
 
     private String projectName = "";
-    private String debugText = "";
+    private String subtitleText = "";
 
     /**
      * 0: Default
@@ -79,20 +80,29 @@ class NewProjectScreen implements Screen {
                             state = 0;
                     }
                 } else if (character == '\n' || character == '\r') {
-                    if (state == 0) {
-                        state = 1;
-                    } else if (state == 1) {
-                        state = 2;
-                        /* Block that requires synchronisation */
-                        Thread thread = new Thread(new Runnable() {
-                            @Override
-                            public void run() {
-                                createFile("Main.adl", "Testing... Testing...\n1, 2, 3...");
-                            }
-                        });
-                        thread.start();
+                    switch (state) {
+                        case 0:
+                            state = 1;
+                            break;
+                        case 1:
+                            state = 2;
+                            AdlFiles.setProjectName(projectName);
+                            /* Block that requires multithreading for screen updating */
+                            Thread thread = new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    subtitleText = projectName;
+                                    AdlFiles.createAdlFileFromTemplate("Main", "Main");
+                                    subtitleText = "Press Enter to finish.";
+                                    state = 3;
+                                }
+                            });
+                            thread.start();
+                            break;
+                        case 3:
+                            Gdx.app.exit();
+                        }
                     }
-                }
                 return true;
             }
 
@@ -107,26 +117,6 @@ class NewProjectScreen implements Screen {
             @Override
             public boolean scrolled(int amount) { return false; }
         });
-    }
-
-    private void createFile(String path, String input) {
-
-        debugText = "Create File: " + path;
-        Gdx.app.log("Create File", path);
-        FileHandle fileHandle = Gdx.files.external("Documents/ADL/" + projectName + "/" + path);
-        try {
-            if (!fileHandle.exists()) {
-                boolean success = fileHandle.parent().file().mkdirs();
-                success |= fileHandle.file().createNewFile();
-                if (!success) {
-                    debugText = "Error while trying to create new file:\nDocuments/ADL" + projectName + "/" + path;
-                    Gdx.app.log("Error while trying to create new file", "Documents/ADL" + projectName + "/" + path);
-                }
-            }
-            fileHandle.writeString(input, false);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @Override
@@ -148,6 +138,9 @@ class NewProjectScreen implements Screen {
             case 2:
                 glyphLayout.setText(font, "Setting up ADL Project!");
                 break;
+            case 3:
+                glyphLayout.setText(font, "Done!");
+                break;
         }
         font.draw(batch, glyphLayout,
                 (- glyphLayout.width) / 2,
@@ -166,10 +159,10 @@ class NewProjectScreen implements Screen {
                     (-glyphLayout.width) / 2,
                     (-glyphLayout.height) / 2 - 100);
 
-        } else if (state == 2) {
+        } else if (state == 2 || state == 3) {
 
             font.setColor(0.5f, 0.5f, 0.5f, 1.0f);
-            glyphLayout.setText(font, debugText);
+            glyphLayout.setText(font, subtitleText);
             font.draw(batch, glyphLayout,
                     (-glyphLayout.width) / 2,
                     (-glyphLayout.height) / 2 - 100);
