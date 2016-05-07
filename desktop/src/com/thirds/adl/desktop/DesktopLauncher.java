@@ -5,7 +5,7 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import com.thirds.adl.AppDevLanguage;
 
 public class DesktopLauncher {
-	public static void main (String[] arg) {
+	public static void main(String[] args) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		new LwjglApplication(new AppDevLanguage(), config);
 	}
