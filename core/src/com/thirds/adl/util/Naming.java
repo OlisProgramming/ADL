@@ -4,6 +4,17 @@ import org.jetbrains.annotations.NotNull;
 
 public class Naming {
 
+    /**
+     * This method converts <pre>UpperCamelCase</pre> or <pre>lowerCamelCase</pre> text to:
+     * <pre>
+     * Camel
+     * Case
+     * With
+     * Newlines
+     * </pre>
+     * @param text is the input text to be converted
+     * @return the converted text
+     */
     @NotNull
     public static String camelCaseToNewlines(String text) {
 

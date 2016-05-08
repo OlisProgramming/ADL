@@ -10,6 +10,9 @@ import com.thirds.adl.interpret.tokens.exception.UnrecognizedCharacterException;
 import com.thirds.adl.screen.TokenizerErrorScreen;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Extracts tokens of ADL code from a file.
+ */
 public class Tokenizer {
 
     /**
@@ -61,6 +64,10 @@ public class Tokenizer {
      */
     private boolean eof = false;
 
+    /**
+     * @param path the relative path to the file to be tokenized
+     * @param game the AppDevLanguage instance to allow the changeScreen function
+     */
     public Tokenizer(String path, AppDevLanguage game) {
 
         fileName = path;
