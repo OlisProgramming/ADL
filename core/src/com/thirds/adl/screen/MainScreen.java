@@ -50,8 +50,6 @@ public class MainScreen implements Screen {
     @Override
     public void show() {
 
-        Gdx.app.setLogLevel(Application.LOG_DEBUG);
-
         camera = new OrthographicCamera(640, 480);
         viewport = new ScreenViewport(camera);
         viewport.apply();
@@ -74,7 +72,7 @@ public class MainScreen implements Screen {
                                                                    float x, float y,
                                                                    int pointer, int button) {
                                               Gdx.app.log("ADL Interpreter Button", "Pressed");
-                                              new Interpreter();
+                                              new Interpreter(game);
                                               return true;
                                           }
                                       }

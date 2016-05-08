@@ -100,7 +100,7 @@ class NewProjectScreen implements Screen {
                             thread.start();
                             break;
                         case 3:
-                            Gdx.app.exit();
+                            game.setScreen(new MainScreen(game));
                         }
                     }
                 return true;

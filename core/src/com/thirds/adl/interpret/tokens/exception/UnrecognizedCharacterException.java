@@ -15,8 +15,12 @@ public class UnrecognizedCharacterException extends TokenizerException {
     @Override
     public void printStackTrace() {
 
-        System.err.println("Exception UnrecognizedCharacterException");
         super.printStackTrace();
         System.err.println("Unrecognized Character: " + character + " is not a valid token character.");
+    }
+
+    @Override
+    public String getExceptionName() {
+        return "UnrecognizedCharacterException";
     }
 }

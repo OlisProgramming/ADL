@@ -2,7 +2,10 @@ package com.thirds.adl.interpret.tokens;
 
 enum TokenType {
 
-    STRING,
+    NAME, STRING_LITERAL,
+    VAR_TYPE_TEXT,
+
+    EQUALS,
 
     EOF,
 }

@@ -1,6 +1,6 @@
 package com.thirds.adl.interpret.tokens;
 
-class Token {
+public class Token {
 
     private TokenType tokenType;
     private String value;
