@@ -7,5 +7,5 @@ enum TokenType {
 
     EQUALS,
 
-    EOF,
+    SEMICOLON, EOF
 }

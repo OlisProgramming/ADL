@@ -14,6 +14,6 @@ public class Token {
     @Override
     public String toString() {
 
-        return String.format("Token(%s, %s)", tokenType.toString(), value);
+        return String.format("Token(%s, %s)", tokenType.toString(), (value.equals("")) ? "[[nothing]]" : value);
     }
 }

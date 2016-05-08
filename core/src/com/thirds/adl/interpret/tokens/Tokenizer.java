@@ -177,12 +177,19 @@ public class Tokenizer {
                     default:
                         return new Token(TokenType.NAME, word);
                 }
+
             } else if (currentChar == '=') {
                 advance();
                 return new Token(TokenType.EQUALS, "=");
+
             } else if (currentChar == '"') {
                 advance();
                 return new Token(TokenType.STRING_LITERAL, popStringLiteral());
+
+            } else if (currentChar == ';') {
+                advance();
+                return new Token(TokenType.SEMICOLON, ";");
+
             } else {
                 /* Not a valid character type */
                 throw new UnrecognizedCharacterException(this, currentChar);
