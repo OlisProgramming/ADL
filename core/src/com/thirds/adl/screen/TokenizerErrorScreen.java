@@ -1,6 +1,7 @@
 package com.thirds.adl.screen;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -9,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.thirds.adl.AppDevLanguage;
-import com.thirds.adl.interpret.tokens.exception.TokenizerException;
+import com.thirds.adl.interpreter.tokens.exception.TokenizerException;
 import com.thirds.adl.util.Naming;
 
 public class TokenizerErrorScreen implements Screen {
@@ -43,6 +44,35 @@ public class TokenizerErrorScreen implements Screen {
         font = new BitmapFont(Gdx.files.internal("fonts/sinkin.fnt"));
         font.setColor(0.2f, 0.2f, 0.2f, 1.0f);
         glyphLayout = new GlyphLayout();
+
+        Gdx.input.setInputProcessor(new InputProcessor() {
+
+            @Override
+            public boolean keyDown(int keycode) { return false; }
+            @Override
+            public boolean keyUp(int keycode) { return false; }
+
+            @Override
+            public boolean keyTyped(char character) {
+
+                if (character == '\n' || character == '\r') {
+                    game.setScreen(new MainScreen(game));
+                    return true;
+                }
+                return false;
+            }
+
+            @Override
+            public boolean touchDown(int screenX, int screenY, int pointer, int button) { return false; }
+            @Override
+            public boolean touchUp(int screenX, int screenY, int pointer, int button) { return false; }
+            @Override
+            public boolean touchDragged(int screenX, int screenY, int pointer) { return false; }
+            @Override
+            public boolean mouseMoved(int screenX, int screenY) { return false; }
+            @Override
+            public boolean scrolled(int amount) { return false; }
+        });
     }
 
     @Override

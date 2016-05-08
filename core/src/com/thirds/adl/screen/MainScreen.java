@@ -1,6 +1,5 @@
 package com.thirds.adl.screen;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -14,8 +13,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.thirds.adl.AppDevLanguage;
+import com.thirds.adl.interpreter.Interpreter;
 import com.thirds.adl.file.AdlFiles;
-import com.thirds.adl.interpret.Interpreter;
 
 /**
  * Startup screen, shows [New Project] button.
