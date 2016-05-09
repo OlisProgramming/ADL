@@ -31,6 +31,7 @@ public class PhraseGenerator {
         this.tokenQueue = tokenArray;
         this.fileName = fileName;
         this.fileContents = fileContents;
+        phrases = new Queue<>();
         try {
             while (!eof) {
                 phrases.addLast(popNextPhrase());
@@ -74,7 +75,7 @@ public class PhraseGenerator {
                     if (isNextArg(TokenType.STR_LITERAL)) {
                         getNextArg(); /* Arg 5 */
                         if (isNextArg(TokenType.SEMICOLON)) {
-                            return new Phrase(PhraseType.VAR_TO_VAL_ASSIGNMENT, args);
+                            return new Phrase(PhraseType.VAR_TO_STR_ASSIGNMENT, args, line, column);
                         } else {
                             throw new InvalidPhraseException(this);
                         }
@@ -92,7 +93,7 @@ public class PhraseGenerator {
             if (isNextArg(TokenType.STR_NAME)) {
                 getNextArg(); /* Arg 3 */
                 if (isNextArg(TokenType.SEMICOLON)) {
-                    return new Phrase(PhraseType.PRINT_VAR, args);
+                    return new Phrase(PhraseType.PRINT_VAR, args, line, column);
                 } else {
                     throw new InvalidPhraseException(this);
                 }
@@ -100,7 +101,7 @@ public class PhraseGenerator {
                 throw new InvalidPhraseException(this);
             }
         } else if (isNextArg(TokenType.EOF)) {
-            return new Phrase(PhraseType.EOF, args);
+            return new Phrase(PhraseType.EOF, args, line, column);
         } else {
                 throw new InvalidPhraseException(this);
         }
