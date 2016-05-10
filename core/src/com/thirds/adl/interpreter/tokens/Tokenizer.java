@@ -196,6 +196,8 @@ public class Tokenizer {
                         return new Token(TokenType.KWD_INT, word, line, column);
                     case "print":
                         return new Token(TokenType.FNC_PRINT, word, line, column);
+                    case "delete":
+                        return new Token(TokenType.FNC_DELETE, word, line, column);
                     default:
                         return new Token(TokenType.STR_NAME, word, line, column);
                 }

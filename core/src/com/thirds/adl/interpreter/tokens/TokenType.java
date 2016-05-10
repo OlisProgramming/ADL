@@ -21,6 +21,9 @@ public enum TokenType {
     /** The stdlib function 'print'. Can print any variable type overriding toString. */
     FNC_PRINT,
 
+    /** The stdlib function 'delete'. Deletes variables. */
+    FNC_DELETE,
+
     /** The variable assignment operator. NOT used as an equality operator. */
     OPR_EQUALS,
 

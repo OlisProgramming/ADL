@@ -11,7 +11,7 @@ public abstract class ParserException extends ADLException {
 
     private final Parser parser;
 
-    ParserException(Parser parser) {
+    public ParserException(Parser parser) {
 
         this.parser = parser;
     }

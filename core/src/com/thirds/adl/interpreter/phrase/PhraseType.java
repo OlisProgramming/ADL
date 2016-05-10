@@ -11,6 +11,9 @@ public enum PhraseType {
     /* Print the value of a variable. */
     PRINT_VAR,
 
+    /* Delete a variable. */
+    DELETE_VAR,
+
     /** End of File marker. */
     EOF
 }

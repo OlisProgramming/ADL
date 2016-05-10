@@ -127,6 +127,18 @@ public class PhraseGenerator {
             } else {
                 throw new InvalidPhraseException(this);
             }
+        } else if (isNextArg(TokenType.FNC_DELETE)) { /* Delete */
+            getNextArg(); /* Arg 2 */
+            if (isNextArg(TokenType.STR_NAME)) { /* Delete Name */
+                getNextArg(); /* Arg 3 */
+                if (isNextArg(TokenType.SEMICOLON)) { /* Delete Name Semicolon */
+                    return new Phrase(PhraseType.DELETE_VAR, args, line, column);
+                } else {
+                    throw new InvalidPhraseException(this);
+                }
+            } else {
+                throw new InvalidPhraseException(this);
+            }
         } else if (isNextArg(TokenType.EOF)) {
             return new Phrase(PhraseType.EOF, args, line, column);
         } else {

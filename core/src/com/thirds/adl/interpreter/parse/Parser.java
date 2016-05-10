@@ -29,14 +29,14 @@ public class Parser {
         this.fileName = fileName;
         this.fileContents = fileContents;
 
-        variableHandler = new VariableHandler();
+        variableHandler = new VariableHandler(this);
 
         for (Phrase phrase: phrases) {
             runPhrase(phrase);
         }
     }
 
-    private void runPhrase(Phrase phrase) throws UnhandledPhraseException {
+    private void runPhrase(Phrase phrase) throws ParserException {
 
         line = phrase.getLine();
         column = phrase.getColumn();
@@ -54,6 +54,10 @@ public class Parser {
                 System.out.println(
                         variableHandler.getVariableValue(
                                 tokens.get(1).getValue().toString()));
+                break;
+
+            case DELETE_VAR:
+                variableHandler.deleteVariable(tokens.get(1).getValue().toString());
                 break;
 
             case EOF:
