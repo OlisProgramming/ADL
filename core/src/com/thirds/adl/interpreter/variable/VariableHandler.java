@@ -4,19 +4,19 @@ import java.util.HashMap;
 
 public class VariableHandler {
 
-    private HashMap<String, Variable> variableMap;
+    private final HashMap<String, Variable> variableMap;
 
     public VariableHandler() {
 
         variableMap = new HashMap<>();
     }
 
-    public void addGlobalVariable(String name, Object variableObject) {
+    public void addVariable(String name, Object variableObject) {
 
         variableMap.put(name, new Variable(variableObject));
     }
 
-    public Object getGlobalVariableValue(String name) {
+    public Object getVariableValue(String name) {
 
         return variableMap.get(name).getValue();
     }

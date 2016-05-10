@@ -5,6 +5,9 @@ public enum PhraseType {
     /** Set a variable to a string literal. */
     VAR_TO_STR_ASSIGNMENT,
 
+    /** Set a variable to an integer. */
+    VAR_TO_INT_ASSIGNMENT,
+
     /* Print the value of a variable. */
     PRINT_VAR,
 

@@ -9,10 +9,16 @@ public enum TokenType {
     /** Any string literal between double quotes, e.g. <pre>"Hello, World!"</pre> */
     STR_LITERAL,
 
-    /** The keyword 'text'. Used as a variable type. */
-    VAR_TYPE_TEXT,
+    /** Any integer value. */
+    VAL_INT,
 
-    /** Print keyword. Can print strings only (at the moment!) */
+    /** The keyword 'text'. Used as a variable type. */
+    KWD_TEXT,
+
+    /** The keyword 'int'. Used as a variable type. */
+    KWD_INT,
+
+    /** The stdlib function 'print'. Can print any variable type overriding toString. */
     FNC_PRINT,
 
     /** The variable assignment operator. NOT used as an equality operator. */

@@ -70,7 +70,6 @@ public class MainScreen implements Screen {
                                           public boolean touchDown(InputEvent event,
                                                                    float x, float y,
                                                                    int pointer, int button) {
-                                              Gdx.app.log("ADL Interpreter Button", "Pressed");
                                               new Interpreter(game);
                                               return true;
                                           }

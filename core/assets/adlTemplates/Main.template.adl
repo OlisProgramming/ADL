@@ -1,2 +1,5 @@
 text message = "Hello!";
 print message;
+
+int number = 42i;
+print number;

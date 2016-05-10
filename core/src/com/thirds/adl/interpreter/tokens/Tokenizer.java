@@ -2,12 +2,11 @@ package com.thirds.adl.interpreter.tokens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Queue;
-import com.thirds.adl.AppDevLanguage;
 import com.thirds.adl.file.AdlFiles;
+import com.thirds.adl.interpreter.tokens.exception.InvalidNumberSuffixException;
 import com.thirds.adl.interpreter.tokens.exception.TokenizerException;
 import com.thirds.adl.interpreter.tokens.exception.UnfinishedStringLiteralException;
 import com.thirds.adl.interpreter.tokens.exception.UnrecognizedCharacterException;
-import com.thirds.adl.screen.TokenizerErrorScreen;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -18,12 +17,12 @@ public class Tokenizer {
     /**
      * String containing all tokens to be interpreted.
      */
-    public String fileContents;
+    public final String fileContents;
 
     /**
      * Name of file, equivalent to path in constructor.
      */
-    public String fileName;
+    public final String fileName;
 
     /**
      * Position counter on fileContents.
@@ -66,22 +65,16 @@ public class Tokenizer {
 
     /**
      * @param path the relative path to the file to be tokenized
-     * @param game the AppDevLanguage instance to allow the changeScreen function
      */
-    public Tokenizer(String path, AppDevLanguage game) {
+    public Tokenizer(String path) throws TokenizerException {
 
         fileName = path;
         fileContents = AdlFiles.getAdlFile(path).readString();
         currentChar = fileContents.charAt(0);
         tokenQueue = new Queue<>();
         Gdx.app.debug("FileInterpreter parse file " + path + ".adl", "\n" + fileContents);
-        try {
-            while (!eof) {
-                tokenQueue.addLast(popNextToken());
-            }
-        } catch (TokenizerException e) {
-            e.printStackTrace();
-            game.setScreen(new TokenizerErrorScreen(game, e));
+        while (!eof) {
+            tokenQueue.addLast(popNextToken());
         }
         for (Token tk: tokenQueue) {
             Gdx.app.debug("Token", tk.toString());
@@ -139,6 +132,31 @@ public class Tokenizer {
     }
 
     /**
+     * Pops the next sequence of characters that form a valid number (float or int).
+     * @return the sequence.
+     */
+    @NotNull
+    private Number popNumber() throws InvalidNumberSuffixException {
+
+        String result = "";
+        while (currentChar != Character.MIN_VALUE && (
+                Character.isDigit(currentChar)
+                || currentChar == '.')) {
+            result += currentChar;
+            advance();
+        }
+        char suffix = currentChar;
+        advance();
+        switch (suffix) {
+            case 'i':
+                return Integer.parseInt(result);
+
+            default:
+                throw new InvalidNumberSuffixException(this, suffix);
+        }
+    }
+
+    /**
      * Pops the next sequence of characters that form a valid string literal, surrounded by double quote marks.
      * @return the sequence.
      */
@@ -173,12 +191,20 @@ public class Tokenizer {
                 String word = popString();
                 switch (word) {
                     case "text":
-                        return new Token(TokenType.VAR_TYPE_TEXT, word, line, column);
+                        return new Token(TokenType.KWD_TEXT, word, line, column);
+                    case "int":
+                        return new Token(TokenType.KWD_INT, word, line, column);
                     case "print":
                         return new Token(TokenType.FNC_PRINT, word, line, column);
                     default:
                         return new Token(TokenType.STR_NAME, word, line, column);
                 }
+
+            } else if (Character.isDigit(currentChar)) {
+                Number number = popNumber();
+                if (number instanceof Integer)
+                    return new Token(TokenType.VAL_INT, number, line, column);
+                else throw new RuntimeException("Number should be an Integer type.");
 
             } else if (currentChar == '=') {
                 advance();

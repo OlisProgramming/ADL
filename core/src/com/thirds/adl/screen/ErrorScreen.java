@@ -10,10 +10,11 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.thirds.adl.AppDevLanguage;
+import com.thirds.adl.exception.ADLException;
 import com.thirds.adl.interpreter.tokens.exception.TokenizerException;
 import com.thirds.adl.util.Naming;
 
-public class TokenizerErrorScreen implements Screen {
+public class ErrorScreen implements Screen {
 
     private AppDevLanguage game;
 
@@ -24,12 +25,13 @@ public class TokenizerErrorScreen implements Screen {
     private GlyphLayout glyphLayout;
     private BitmapFont font;
 
-    private String headerText = "";
+    private String causeText = "";
     private String subtitleText = "";
 
-    public TokenizerErrorScreen(AppDevLanguage game, TokenizerException exception) {
+    public ErrorScreen(AppDevLanguage game, ADLException exception, String causeText) {
 
         this.game = game;
+        this.causeText = causeText;
         subtitleText = Naming.camelCaseToNewlines(exception.getExceptionName());
     }
 
@@ -85,16 +87,16 @@ public class TokenizerErrorScreen implements Screen {
         batch.begin();
 
         font.setColor(0.2f, 0.2f, 0.2f, 1.0f);
-        glyphLayout.setText(font, "Error while\ntokenizing\nADL code!");
+        glyphLayout.setText(font, "Sorry! I found\nan error while\n" + causeText + "\nyour ADL code.");
         font.draw(batch, glyphLayout,
                 (- glyphLayout.width) / 2,
-                (- glyphLayout.height) / 2 + 250);
+                (- glyphLayout.height) / 2 + 260);
 
         font.setColor(0.5f, 0.5f, 0.5f, 1.0f);
         glyphLayout.setText(font, subtitleText);
         font.draw(batch, glyphLayout,
                     (-glyphLayout.width) / 2,
-                    (-glyphLayout.height) / 2);
+                    (-glyphLayout.height) / 2 + 40);
 
         batch.end();
     }

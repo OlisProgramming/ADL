@@ -3,14 +3,14 @@ package com.thirds.adl.interpreter.tokens;
 public class Token {
 
     private TokenType tokenType;
-    private String value;
+    private Object value;
 
     /** The line at which this token occurs in the file. */
     private int line;
     /** The column at which this token occurs in the file. */
     private int column;
 
-    public Token(TokenType tokenType, String value, int line, int column) {
+    public Token(TokenType tokenType, Object value, int line, int column) {
 
         setTokenType(tokenType);
         setValue(value);
@@ -30,10 +30,10 @@ public class Token {
     public void setTokenType(TokenType tokenType) {
         this.tokenType = tokenType;
     }
-    public String getValue() {
+    public Object getValue() {
         return value;
     }
-    public void setValue(String value) {
+    public void setValue(Object value) {
         this.value = value;
     }
     public int getLine() {

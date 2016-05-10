@@ -9,7 +9,7 @@ import java.io.StringReader;
 
 public abstract class ParserException extends ADLException {
 
-    private Parser parser;
+    private final Parser parser;
 
     ParserException(Parser parser) {
 
