@@ -44,9 +44,13 @@ project(":desktop") {
 
 project(":core") {
     apply plugin: "java"
-
+    compileJava {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
 
     dependencies {
+        compile 'com.intellij:annotations:+@jar'
         compile "com.badlogicgames.gdx:gdx:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         compile "com.badlogicgames.box2dlights:box2dlights:$box2DLightsVersion"
