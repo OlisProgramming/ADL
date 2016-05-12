@@ -216,10 +216,6 @@ public class Tokenizer {
                 advance();
                 return new Token(TokenType.STR_LITERAL, popStringLiteral(), line, column);
 
-            } else if (currentChar == ';') {
-                advance();
-                return new Token(TokenType.SEMICOLON, ";", line, column);
-
             } else {
                 /* Not a valid character type */
                 throw new UnrecognizedCharacterException(this, currentChar);

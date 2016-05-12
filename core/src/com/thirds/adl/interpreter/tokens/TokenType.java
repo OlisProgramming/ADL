@@ -27,9 +27,6 @@ public enum TokenType {
     /** The variable assignment operator. NOT used as an equality operator. */
     OPR_EQUALS,
 
-    /** End of Statement marker. */
-    SEMICOLON,
-
     /** End of File marker. */
     EOF
 }

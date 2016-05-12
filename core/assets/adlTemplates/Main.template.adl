@@ -1,8 +1,8 @@
-text message = "Hello!";
-print message;
+text message = "Hello!"
+print message
 
-int number = 42i;
-print number;
+int number = 42i
+print number
 
-delete message;
-delete number;
+delete message
+delete number

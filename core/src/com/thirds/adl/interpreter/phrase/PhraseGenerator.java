@@ -78,12 +78,7 @@ public class PhraseGenerator {
                 if (isNextArg(TokenType.OPR_EQUALS)) { /* Text Name Equals */
                     getNextArg(); /* Arg 4 */
                     if (isNextArg(TokenType.STR_LITERAL)) { /* Text Name Equals StrLit */
-                        getNextArg(); /* Arg 5 */
-                        if (isNextArg(TokenType.SEMICOLON)) { /* Text Name Equals StrLit Semicolon */
-                            return new Phrase(PhraseType.VAR_TO_STR_ASSIGNMENT, args, line, column);
-                        } else {
-                            throw new InvalidPhraseException(this);
-                        }
+                        return new Phrase(PhraseType.VAR_TO_STR_ASSIGNMENT, args, line, column);
                     } else {
                         throw new InvalidPhraseException(this);
                     }
@@ -100,12 +95,7 @@ public class PhraseGenerator {
                 if (isNextArg(TokenType.OPR_EQUALS)) { /* KwdInt Name Equals */
                     getNextArg(); /* Arg 4 */
                     if (isNextArg(TokenType.VAL_INT)) { /* KwdInt Name Equals ValInt */
-                        getNextArg(); /* Arg 5 */
-                        if (isNextArg(TokenType.SEMICOLON)) { /* KwdInt Name Equals ValInt Semicolon */
-                            return new Phrase(PhraseType.VAR_TO_INT_ASSIGNMENT, args, line, column);
-                        } else {
-                            throw new InvalidPhraseException(this);
-                        }
+                        return new Phrase(PhraseType.VAR_TO_INT_ASSIGNMENT, args, line, column);
                     } else {
                         throw new InvalidPhraseException(this);
                     }
@@ -118,24 +108,14 @@ public class PhraseGenerator {
         } else if (isNextArg(TokenType.FNC_PRINT)) { /* Print */
             getNextArg(); /* Arg 2 */
             if (isNextArg(TokenType.STR_NAME)) { /* Print Name */
-                getNextArg(); /* Arg 3 */
-                if (isNextArg(TokenType.SEMICOLON)) { /* Print Name Semicolon */
-                    return new Phrase(PhraseType.PRINT_VAR, args, line, column);
-                } else {
-                    throw new InvalidPhraseException(this);
-                }
+                return new Phrase(PhraseType.PRINT_VAR, args, line, column);
             } else {
                 throw new InvalidPhraseException(this);
             }
         } else if (isNextArg(TokenType.FNC_DELETE)) { /* Delete */
             getNextArg(); /* Arg 2 */
             if (isNextArg(TokenType.STR_NAME)) { /* Delete Name */
-                getNextArg(); /* Arg 3 */
-                if (isNextArg(TokenType.SEMICOLON)) { /* Delete Name Semicolon */
-                    return new Phrase(PhraseType.DELETE_VAR, args, line, column);
-                } else {
-                    throw new InvalidPhraseException(this);
-                }
+                return new Phrase(PhraseType.DELETE_VAR, args, line, column);
             } else {
                 throw new InvalidPhraseException(this);
             }
