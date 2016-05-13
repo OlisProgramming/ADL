@@ -6,7 +6,12 @@ import com.thirds.adl.AppDevLanguage;
 
 public class DesktopLauncher {
 	public static void main(String[] args) {
-		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new AppDevLanguage(), config);
+
+        LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		if (args.length > 0) {
+            new LwjglApplication(new AppDevLanguage(args[0]), config);
+        } else {
+            new LwjglApplication(new AppDevLanguage(""), config);
+        }
 	}
 }

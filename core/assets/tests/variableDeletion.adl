@@ -1,0 +1,5 @@
+text message = "Testing."
+int number = 1234i
+
+delete message
+delete number

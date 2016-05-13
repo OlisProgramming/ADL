@@ -66,10 +66,13 @@ public class Tokenizer {
     /**
      * @param path the relative path to the file to be tokenized
      */
-    public Tokenizer(String path) throws TokenizerException {
+    public Tokenizer(String path, boolean fileIsInternal) throws TokenizerException {
 
         fileName = path;
-        fileContents = AdlFiles.getAdlFile(path).readString();
+
+        if (fileIsInternal) fileContents = Gdx.files.internal(path).readString();
+        else fileContents = AdlFiles.getAdlFile(path).readString();
+
         currentChar = fileContents.charAt(0);
         tokenQueue = new Queue<>();
         Gdx.app.debug("FileInterpreter parse file " + path + ".adl", "\n" + fileContents);

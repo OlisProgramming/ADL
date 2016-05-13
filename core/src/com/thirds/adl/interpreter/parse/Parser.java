@@ -21,7 +21,7 @@ public class Parser {
     public final String fileName;
     public final String fileContents;
 
-    private VariableHandler variableHandler;
+    public VariableHandler variableHandler;
 
     public Parser(Queue<Phrase> phrases, final String fileName, final String fileContents) throws ParserException {
 

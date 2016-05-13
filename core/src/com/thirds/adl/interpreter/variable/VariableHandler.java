@@ -23,12 +23,14 @@ public class VariableHandler {
     public void deleteVariable(String name) throws VariableDoesNotExistException {
 
         if (variableMap.containsKey(name))
-            variableMap.remove(variableMap.get(name));
+            variableMap.remove(name);
         else throw new VariableDoesNotExistException(parser, name);
     }
 
     public Object getVariableValue(String name) {
 
-        return variableMap.get(name).getValue();
+        if (variableMap.containsKey(name))
+            return variableMap.get(name).getValue();
+        else return null;
     }
 }
