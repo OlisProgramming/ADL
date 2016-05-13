@@ -1,4 +1,4 @@
-package com.thirds.adl.interpreter.variable;
+package com.thirds.adl.interpreter.parse.exception;
 
 import com.thirds.adl.interpreter.parse.Parser;
 import com.thirds.adl.interpreter.parse.exception.ParserException;

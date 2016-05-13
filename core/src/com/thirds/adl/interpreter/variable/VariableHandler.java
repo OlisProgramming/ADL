@@ -1,6 +1,7 @@
 package com.thirds.adl.interpreter.variable;
 
 import com.thirds.adl.interpreter.parse.Parser;
+import com.thirds.adl.interpreter.parse.exception.VariableDoesNotExistException;
 
 import java.util.HashMap;
 
