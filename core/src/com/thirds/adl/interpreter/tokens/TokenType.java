@@ -18,6 +18,9 @@ public enum TokenType {
     /** The keyword 'int'. Used as a variable type. */
     KWD_INT,
 
+    /** Any mathematical expression, enclosed within &lt;angle brackets&gt;. */
+    MATH_EXPRESSION,
+
     /** The stdlib function 'print'. Can print any variable type overriding toString. */
     FNC_PRINT,
 
@@ -26,6 +29,9 @@ public enum TokenType {
 
     /** The variable assignment operator. NOT used as an equality operator. */
     OPR_EQUALS,
+
+    /** The addition operator. */
+    OPR_PLUS,
 
     /** End of File marker. */
     EOF

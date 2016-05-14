@@ -6,6 +6,7 @@ import com.thirds.adl.interpreter.parse.exception.ParserException;
 import com.thirds.adl.interpreter.parse.exception.UnhandledPhraseException;
 import com.thirds.adl.interpreter.phrase.Phrase;
 import com.thirds.adl.interpreter.tokens.Token;
+import com.thirds.adl.interpreter.variable.MathExpression;
 import com.thirds.adl.interpreter.variable.VariableHandler;
 
 /**
@@ -48,6 +49,12 @@ public class Parser {
                 variableHandler.addVariable(
                         tokens.get(1).getValue().toString(),
                         tokens.get(3).getValue());
+                break;
+
+            case VAR_TO_MATH_ASSIGNMENT:
+                variableHandler.addVariable(
+                        tokens.get(1).getValue().toString(),
+                        ((MathExpression)(tokens.get(3).getValue())).evaluate(variableHandler));
                 break;
 
             case PRINT_VAR:

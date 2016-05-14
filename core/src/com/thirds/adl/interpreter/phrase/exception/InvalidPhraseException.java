@@ -21,7 +21,7 @@ public class InvalidPhraseException extends PhraseException {
         for (Token tk: tokens) {
             tokensToString += "\t" + tk.toString() + "\n";
         }
-        System.err.println("Token Phrase:\n" + tokensToString + "is an invalid Phrase of tokens or start of Phrase of tokens.");
+        System.err.println("Phrase:\n" + tokensToString + "is an invalid Phrase of tokens or start of Phrase of tokens.");
     }
 
     @Override
