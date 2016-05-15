@@ -1,2 +1,7 @@
 int addition = <42i + 138i>
 int longAddition = <250i + 208i + 391i + 13i + 138i>
+
+int constant = 100i
+int constantAdded = <constant + 150i>
+
+int longVariableAddition = <addition + longAddition + constant + constantAdded>

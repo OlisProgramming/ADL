@@ -70,6 +70,8 @@ public class MathExpression {
 
         switch (token.getTokenType()) {
 
+            case STR_NAME:
+                return -1;
             case VAL_INT:
                 return -1;
             case OPR_PLUS:
@@ -88,6 +90,8 @@ public class MathExpression {
 
         switch (token.getTokenType()) {
 
+            case STR_NAME:
+                return false;
             case VAL_INT:
                 return false;
             case OPR_PLUS:
@@ -114,8 +118,24 @@ public class MathExpression {
             switch (tk.getTokenType()) {
 
                 case OPR_PLUS:
+                    Array<Token> args = new Array<>(2);
+                    Array<Integer> results = new Array<>(2);
+                    args.add(stack.pop());
+                    args.add(stack.pop());
+
+                    for (Token arg: args) {
+                        switch (arg.getTokenType()) {
+                            case VAL_INT:
+                                results.add((int)(arg.getValue()));
+                                break;
+                            case STR_NAME:
+                                results.add((int)(variableHandler.getVariableValue((String)(arg.getValue()))));
+                                break;
+                        }
+                    }
+
                     stack.add(new Token(TokenType.VAL_INT,
-                            (int)(stack.pop().getValue()) + (int)(stack.pop().getValue()),
+                            results.get(0) + results.get(1),
                             0, 0));
                     break;
 
