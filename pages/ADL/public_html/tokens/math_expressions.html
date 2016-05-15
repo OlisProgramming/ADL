@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<!--
+OlisProgramming 2016.
+-->
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Mathematical Expressions</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="../css/normalize.css">
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/style.css">
+        <script src="../js/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>');</script>
+        <script src="../js/plugins.js"></script>
+        <script src="../js/main.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div id="header">
+		<div>
+                    <ul id="navigation">
+                        <li>
+                            <a href="../index.html">Home</a>
+                        </li>
+                        <li>
+                            <a href="http://bit.ly/ADLLang">GitHub</a>
+                        </li>
+                    </ul>
+		</div>
+	</div>
+        
+        <div id="contents">
+            <div id="tagline" class="clearfix">
+                <h1><br /><br />Mathematical Expressions</h1>
+                <div>
+                    <p>This token type's value is an <code>Array</code> of tokens - the tokens that make up the expression (e.g. <code>42i | + | 138i</code>).</p>
+                    <p>The <code>MathExpression</code> class then, at tokenization time, uses the shunting-yard algorithm to convert the infix token order to postfix token order (see <a href="https://en.wikipedia.org/wiki/Shunting-yard_algorithm">the Wikipedia page on it</a>) because it is more efficient to parse postfix tokens rather than infix tokens.</p>
+                </div>
+            </div>
+	</div>
+        
+        <div id="footer">
+            <div class="clearfix">
+                <p>
+                    © 2016 <a href="https://github.com/OlisProgramming">OlisProgramming</a>. All Rights Reserved.
+                </p>
+            </div>
+	</div>
+    </body>
+</html>

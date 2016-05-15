@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!--
+OlisProgramming 2016.
+-->
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>What are Tokens?</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="../css/normalize.css">
+        <link rel="stylesheet" href="../css/main.css">
+        <link rel="stylesheet" href="../css/style.css">
+        <script src="../js/vendor/modernizr-2.6.2.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.9.1.min.js"><\/script>');</script>
+        <script src="../js/plugins.js"></script>
+        <script src="../js/main.js"></script>
+    </head>
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div id="header">
+		<div>
+                    <ul id="navigation">
+                        <li>
+                            <a href="../index.html">Home</a>
+                        </li>
+                        <li>
+                            <a href="http://bit.ly/ADLLang">GitHub</a>
+                        </li>
+                    </ul>
+		</div>
+	</div>
+        
+        <div id="contents">
+            <div id="tagline" class="clearfix">
+                <h1><br /><br />What are Tokens?</h1>
+                <div>
+                    <p>Tokens are the building blocks of ADL. Each individual symbol, name or mathematical expression is classed as a token. Look at the example ADL code below and how it is separated into tokens (the verical bar | is used to denote token separators).</p>
+                    <p><code>int addition = &lt;42i + 138i&gt;</code> is tokenized to</p>
+                    <p><code>int | addition | = | &lt; | 42i | + | 138i | &gt;</code></p>
+                    <p>However, this is not entirely accurate. Because mathematical expressions can be quite complex, they have their own type - <code>MATH_EXPRESSION</code>. Check out the <a href="math_expressions.html"><code>MathExpression</code></a> page for more info.</p>
+                </div>
+            </div>
+	</div>
+        
+        <div id="footer">
+            <div class="clearfix">
+                <p>
+                    © 2016 <a href="https://github.com/OlisProgramming">OlisProgramming</a>. All Rights Reserved.
+                </p>
+            </div>
+	</div>
+    </body>
+</html>
