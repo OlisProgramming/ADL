@@ -89,6 +89,10 @@ public class TestScreen implements Screen {
                         new String[] {"addition", "longAddition", "constantAdded", "longVariableAddition"},
                         new Object[] {180, 1000, 250, 1530});
 
+                testFileForVariables("setVarToVar",
+                        new String[] {"secondText", "secondInt"},
+                        new Object[] {"Hello", 100});
+
                 testText = "Passed " + testCount + " tests!";
 
             } catch (ADLException e) {

@@ -79,6 +79,8 @@ public class PhraseGenerator {
                     getNextArg(); /* Arg 4 */
                     if (isNextArg(TokenType.STR_LITERAL)) { /* Text Name Equals StrLit */
                         return new Phrase(PhraseType.VAR_TO_STR_ASSIGNMENT, args, line, column);
+                    } else if (isNextArg(TokenType.STR_NAME)) { /* Text Name Equals Name */
+                        return new Phrase(PhraseType.VAR_TO_VAR_ASSIGNMENT, args, line, column);
                     } else {
                         throw new InvalidPhraseException(this);
                     }
@@ -98,6 +100,8 @@ public class PhraseGenerator {
                         return new Phrase(PhraseType.VAR_TO_INT_ASSIGNMENT, args, line, column);
                     } else if (isNextArg(TokenType.MATH_EXPRESSION)) { /* KwdInt Name Equals Math */
                         return new Phrase(PhraseType.VAR_TO_MATH_ASSIGNMENT, args, line, column);
+                    } else if (isNextArg(TokenType.STR_NAME)) { /* KwdInt Name Equals Name */
+                        return new Phrase(PhraseType.VAR_TO_VAR_ASSIGNMENT, args, line, column);
                     } else {
                         throw new InvalidPhraseException(this);
                     }

@@ -1,0 +1,5 @@
+text firstText = "Hello"
+text secondText = firstText
+
+int firstInt = 100i
+int secondInt = firstInt

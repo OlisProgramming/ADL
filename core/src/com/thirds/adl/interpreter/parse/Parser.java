@@ -57,6 +57,12 @@ public class Parser {
                         ((MathExpression)(tokens.get(3).getValue())).evaluate(variableHandler));
                 break;
 
+            case VAR_TO_VAR_ASSIGNMENT:
+                variableHandler.addVariable(
+                        tokens.get(1).getValue().toString(),
+                        variableHandler.getVariableValue((String)(tokens.get(3).getValue())));
+                break;
+
             case PRINT_VAR:
                 System.out.println(
                         variableHandler.getVariableValue(
